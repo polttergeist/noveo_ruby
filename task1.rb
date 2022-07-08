@@ -4,5 +4,3 @@ def sum arr
 	end
 	arr.shift + sum(arr)
 end
-
-puts sum [2, 3, 4, 5]
