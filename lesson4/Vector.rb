@@ -19,18 +19,14 @@ class Vector
     Vector.new(Array.new(vect.length) { |i| self[i] + vect[i]})
   end
 
-  def +(vect)
-    add(vect)
-  end
+  alias + add
 
   def subtract(vect)
     return nil unless vect.length == self.length
     Vector.new(Array.new(vect.length) { |i| self[i] - vect[i]})
   end
 
-  def -(vect)
-    subtract(vect)
-  end
+  alias - subtract
 
   def dot(vect)
     return nil unless vect.length == self.length
@@ -39,9 +35,7 @@ class Vector
     res
   end
 
-  def *(vect)
-    dot(vect)
-  end
+  alias * dot
 
   def norm
     res = 0
