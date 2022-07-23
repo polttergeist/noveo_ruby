@@ -1,28 +1,17 @@
 class HashWithIndifferentAccess < Hash
-  def initialize(h)
-    h.each { |k, v| self[convert_key(k)] = v }
-  end
-
-  def get_key(key)
-    self[convert_key(key)]
-  end
-
-  def convert_key(key)
-    key.is_a?(Symbol) ? key.to_s : key
-  end
-
   def [](key)
-    super(convert_key(key))
-  end
-
-  def []=(key, val)
-    self.store(convert_key(key), val)
+    return super(key) unless super(key).nil?
+    if key.class == Symbol
+      super(key.to_s)
+    elsif key.class == String
+      super(key.to_sym)
+    end
   end
 end
 
 class Hash
   def with_indifferent_access
-    HashWithIndifferentAccess.new(self)
+    HashWithIndifferentAccess[self]
   end
 end
 
@@ -30,3 +19,7 @@ h = { a: 'apple' }.with_indifferent_access
 p h['a'] # => apple
 h[:foo] = 'bar'
 p h['foo']  # => bar
+h[:one] = 'one'
+p h[:one]
+h['two'] = 'two'
+p h['two']
