@@ -41,5 +41,11 @@ puts list #=> (3, 15, 5, 10)
 list.append_after(10, 25)
 puts list #=> (3, 15, 5, 10, 25)
 
-puts list.delete(10)
-puts list.exists?(25)
+list.delete(10)
+list.delete(3)
+list.delete(30)
+list.delete(25)
+puts list #=> (15, 5)
+
+puts list.find(5)
+puts list.find(30)
