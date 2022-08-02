@@ -7,6 +7,5 @@ end
 public
 
 def capitalizable!
-  self.singleton_class.include(Useful)
-  self
+  self.extend(Useful) # self.singleton_class.include(Useful) works too
 end
