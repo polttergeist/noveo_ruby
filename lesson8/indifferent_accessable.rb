@@ -11,7 +11,7 @@ end
 
 class Hash
   def make_indifferent_accessable!
-    self.singleton_class.include(IndifferentAccessable)
+    self.extend(IndifferentAccessable)
     self
   end
 end
