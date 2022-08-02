@@ -12,6 +12,5 @@ end
 class Hash
   def make_indifferent_accessable!
     self.extend(IndifferentAccessable)
-    self
   end
 end
