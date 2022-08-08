@@ -1,11 +1,11 @@
 module Tryable
   def try(&block)
     block.call(self)
-    rescue NoMethodError
+  rescue NoMethodError
       nil
   end
 end
 
-def add_num(i)
-  proc { |j| i+j }
+def add_num(num)
+  proc { |base_num| num + base_num }
 end
