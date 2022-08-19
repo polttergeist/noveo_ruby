@@ -1,5 +1,4 @@
 class PaginationHelper
-  attr_accessor :unpaginated
   attr_reader :item_count, :count
 
   def initialize(arr, count)
@@ -17,7 +16,7 @@ class PaginationHelper
     if item_count <= count
       item_count
     else
-      unpaginated[i*count...(i+1)*count].length
+      @unpaginated[i*count...(i+1)*count].length
     end
   end
 
