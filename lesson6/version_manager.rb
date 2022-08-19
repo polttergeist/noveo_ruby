@@ -1,43 +1,39 @@
 class VersionManager
-  attr_accessor :release, :history
-
   def initialize(str = '0.0.1')
     arr = str.split('.')
-    if arr.length > 3 then arr = arr[0..2] end # throwing away redundant elements
-    until arr.length == 3 do arr << 0 end # filling up the array if the argument isn't in its full form
-    arr.each do |i| # checking elements to be integers, otherwise raising an exception
-      i.each_char { |j| unless ('0'..'9') === j then raise NoMethodError end }
+    arr = arr[0..2] if arr.length > 3
+    arr << '0' until arr.length == 3
+    arr.each do |i|
+      i.each_char { |j| unless ('0'..'9') === j then raise ArgumentError end }
     end
-    @release = arr.join('.')
+    @release = arr.map(&:to_i)
     @history = []
   end
 
   def major!
-    arr = @release.split('.')
-    arr[0] = (arr[0].to_i + 1).to_s
-    arr[1] = '0'
-    arr[2] = '0'
     @history.unshift(@release)
-    @release = arr.join('.')
+    @release[0] += 1
+    @release[1] = 0
+    @release[2] = 0
   end
 
   def minor!
-    arr = @release.split('.')
-    arr[1] = (arr[1].to_i + 1).to_s
-    arr[2] = '0'
     @history.unshift(@release)
-    @release = arr.join('.')
+    @release[1] += 1
+    @release[2] = 0
   end
 
   def patch!
-    arr = @release.split('.')
-    arr[2] = (arr[2].to_i + 1).to_s
     @history.unshift(@release)
-    @release = arr.join('.')
+    @release[2] += 1
   end
 
   def rollback!
-    if @history == [] then raise NoMethodError end
+    if @history == [] then raise ArgumentError end
     @release = @history.shift
+  end
+
+  def release
+    @release.map(&:to_s).join('.')
   end
 end
