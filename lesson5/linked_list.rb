@@ -1,6 +1,4 @@
 class LinkedList
-  attr_accessor :head
-
   def initialize
     @head = nil
   end
@@ -24,8 +22,9 @@ class LinkedList
   end
 
   def append_after(i, j)
+    return nil if @head == nil
     new = Node.new(j)
-    tmp1 = head
+    tmp1 = @head
     until tmp1.value == i
       tmp1 = tmp1.next
     end
@@ -45,6 +44,7 @@ class LinkedList
   end
 
   def delete(i)
+    return nil if @head == nil
     tmp = @head
     if @head.value == i
       @head = @head.next
@@ -62,6 +62,7 @@ class LinkedList
   end
 
   def find(i)
+    return nil if @head == nil
     tmp = @head
     until tmp.value == i
       if tmp.next.nil? then return end
