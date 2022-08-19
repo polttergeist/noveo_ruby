@@ -1,34 +1,15 @@
-class BinaryTree
-  attr_accessor :root
+require_relative 'node'
 
+class BinaryTree
   def initialize
     @root = nil
   end
 
-  def add(i, tmp=@root)
-    if @root == nil
-      @root = Node.new(i)
-      return
-    end
-    case tmp.value <=> i
-    when -1
-      if tmp.left.nil?
-        tmp.left = Node.new(i)
-      else
-        self.add(i, tmp.left)
-      end
-    when 1
-      if tmp.right.nil?
-        tmp.right = Node.new(i)
-      else
-        self.add(i, tmp.right)
-      end
-    else
-      nil
-    end
+  def add(i)
+    add_rec(i, @root)
   end
 
-  def find(i, tmp=@root)
+  def find(i)
     if i == @root.value
       @root.value
     end
@@ -56,8 +37,7 @@ class BinaryTree
     end
   end
 
-
-  protected
+  private
 
   def find_parent(i, tmp=@root)
     if tmp.nil?
@@ -78,13 +58,27 @@ class BinaryTree
       nil
     end
   end
-end
 
-class Node
-  attr_accessor :value, :left, :right
-
-  def initialize(value)
-    @value = value
-    @left, @right = nil, nil
+  def add_rec(i, tmp=@root)
+    if @root == nil
+      @root = Node.new(i)
+      return
+    end
+    case tmp.value <=> i
+    when -1
+      if tmp.left.nil?
+        tmp.left = Node.new(i)
+      else
+        self.add_rec(i, tmp.left)
+      end
+    when 1
+      if tmp.right.nil?
+        tmp.right = Node.new(i)
+      else
+        self.add_rec(i, tmp.right)
+      end
+    else
+      nil
+    end
   end
 end
