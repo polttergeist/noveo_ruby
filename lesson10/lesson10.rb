@@ -1,17 +1,15 @@
 class Shape
-  attr_accessor :area
+  attr_reader :area
 
+  include Comparable
+  
   def <=>(shape)
     self.area <=> shape.area
-  end
-
-  def to_s
-    area.to_s
   end
 end
 
 class Square < Shape
-  attr_accessor :side
+  attr_reader :side
 
   def initialize(side)
     @side = side
@@ -20,7 +18,7 @@ class Square < Shape
 end
 
 class Rectangle < Shape
-  attr_accessor :side1, :side2
+  attr_reader :side1, :side2
 
   def initialize(side1, side2)
     @side1 = side1
@@ -30,7 +28,7 @@ class Rectangle < Shape
 end
 
 class Triangle < Shape
-  attr_accessor :base, :height
+  attr_reader :base, :height
 
   def initialize(base, height)
     @base = base
@@ -40,7 +38,7 @@ class Triangle < Shape
 end
 
 class Circle < Shape
-  attr_accessor :radius
+  attr_reader :radius
 
   def initialize(radius)
     @radius = radius
