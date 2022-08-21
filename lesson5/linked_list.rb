@@ -52,7 +52,7 @@ class LinkedList
     end
     until tmp.next.value == i
       tmp = tmp.next
-      if tmp.next.nil? then break end
+      break if tmp.next.nil?
     end
     begin
       tmp.next = tmp.next.next
@@ -65,7 +65,7 @@ class LinkedList
     return nil if @head == nil
     tmp = @head
     until tmp.value == i
-      if tmp.next.nil? then return end
+      return if tmp.next.nil?
       tmp = tmp.next
     end
     tmp
