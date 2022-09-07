@@ -1,0 +1,59 @@
+<script type="text/javascript">
+function del(id) {
+	let xhr = new XMLHttpRequest(); 
+	xhr.open('DELETE', `/products?id=${id}`); 
+	xhr.send();
+}
+</script>
+
+<h1>List of products</h1>
+<!-- There will be the list of products-->
+<% csv = nil %>
+<% if File.exist?('products.csv') %>
+<% 	csv = CSV.read('products.csv') %>
+<%  if File.open('products.csv', 'a+').read.empty? %>
+<%   csv.write("Name,Price,Count,Creator\n") %>
+<%  end %>
+<% else %>
+<% 	csv = File.open('products.csv', 'w') %>
+<% 	csv.write("Name,Price,Count,Creator\n") %>
+<% end %>
+
+<style>
+	form {
+		display: inline;
+	}
+</style>
+<% if File.open('products.csv', 'a+').read.empty? %>
+<%= 'The list of products is empty.' %>
+<% else %>
+<table>
+<% begin %>
+<% 	(0..csv.length).each do |i| %>
+	<tr>
+		<td><%= csv[i][0] %></td>
+		<td><%= csv[i][1] %></td>
+		<td><%= csv[i][2] %></td>
+		<td><%= csv[i][3] %></td>
+		<% unless csv[i] == ['Name', 'Price', 'Count', 'Creator']%>
+		<td>
+		<form action=<%="/product_page/#{i}"%>>
+			<input type="submit" value="Update">
+		</form>
+		<form>
+			<input type="button" value="Delete" onclick="del(<%= i %>)">
+		</form>
+		</td>
+		<% end %>
+	</tr>
+<% rescue NoMethodError %>
+<% end %>
+<% end %>
+</table>
+<% end %>
+
+
+
+<form action="/product_page">
+<input type="submit" value="Create a new product">
+</form>
