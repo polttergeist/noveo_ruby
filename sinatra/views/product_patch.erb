@@ -1,0 +1,33 @@
+<script type="text/javascript">
+function upd(id) {
+  let xhr = new XMLHttpRequest(); 
+  xhr.open('PATCH', `/product_page?name=${document.getElementById("name").value}&price=${document.getElementById("price").value}&count=${document.getElementById("count").value}&creator=${document.getElementById("creator").value}&id=${document.getElementById("id").value}`); 
+  xhr.send();
+}
+</script>
+
+<form onsubmit="upd(<%= id %>)">
+  <style>
+    label, input {
+      display: block;
+    }
+  </style>
+  
+  <% csv = CSV.read('products.csv') %>
+  
+	<label for="name">Name:</label>
+  <input id='name' type='text' name='name' value=<%= "#{csv[params[:id].to_i][0]}" %>>
+
+  <label for="price">Price:</label>
+  <input id="price" type="text" name="price" value=<%= "#{csv[params[:id].to_i][1]}" %>>
+
+  <label for="count">Count:</label>
+  <input id="count" type="text" name="count" value=<%= "#{csv[params[:id].to_i][2]}" %>>
+
+  <label for="creator">Creator:</label>
+  <input id="creator" type="text" name="creator" value=<%= "#{csv[params[:id].to_i][3]}" %>>
+
+  <input id="id" type="hidden" name="id" value=<%= "#{id}" %>>
+
+  <input type="submit" value="Save">
+</form>
